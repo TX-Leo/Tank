@@ -1,0 +1,93 @@
+黤lag==0
+flag==1
+flag==0
+flag==2
+goalangle:60.000000	  curangle: 0.000000
+goalangle:60.000000	  curangle: 358.67
+000000	  curangle: 285.243530
+goalangle:60.000000	  curangle: 256.003418
+goala
+ngle:60.000000	  curangle: 225.642700
+goalangle:60.000000	  curangle: 194.75463
+9
+goalangle:60.000000	  curangle: 166.821899
+goalangle:60.000000	  curangle: 1
+46.228027
+goalangle:60.000000	  curangle: 136.378784
+goalangle:60.000000	  cur
+angle: 129.440918
+goalangle:60.000000	  curangle: 122.497559
+goalangle:60.0000
+00	  curangle: 114.603882
+goalangle:60.000000	  curangle: 105.633545
+goalangle
+:60.000000	  curangle: 96.778564
+goalangle:60.000000	  curangle: 88.231201
+goa
+langle:60.000000	  curangle: 81.309814
+goalangle:60.000000	  curangle: 75.81115
+7
+goalangle:60.000000	  curangle: 72.273560
+goalangle:60.000000	  curangle: 70
+.169678
+goalangle:60.000000	  curangle: 69.087524
+goalangle:60.000000	  curang
+le: 68.384399
+goalangle:60.000000	  curangle: 67.922974
+goalangle:60.000000	  
+curangle: 67.258301
+goalangle:60.000000	  curangle: 66.390381
+goalangle:60.000
+000	  curangle: 65.286255
+flag==0
+flag==3
+flag==0
+flag==4
+flag==0
+flag==5
+flag==0
+flag==2
+goalangle:120.000000	  curangle: 32.091064
+goalangle:0.000000	  curangle: 0.000000
+goalangle:120.000000	  curangle: 18.978
+882
+goalangle:120.000000	  curangle: 359.780273
+goalangle:120.000000	  curangl
+e: 334.863281
+goalangle:120.000000	  curangle: 304.617920
+goalangle:120.000000
+	  curangle: 272.807007
+goalangle:0.000000	  curangle: 0.000000
+goalangle:120.
+000000	  curangle: 211.761475
+goalangle:0.000000	  curangle: 0.000000
+goalangl
+e:120.000000	  curangle: 181.587524
+goalangle:120.000000	  curangle: 173.567505
+
+goalangle:120.000000	  curangle: 166.755981
+goalangle:0.000000	  curangle: 0.
+000000
+goalangle:120.000000	  curangle: 153.380127
+goalangle:120.000000	  cura
+ngle: 148.117676
+goalangle:0.000000	  curangle: 0.000000
+goalangle:0.000000	  
+curangle: 0.000000
+goalangle:120.000000	  curangle: 137.719116
+goalangle:120.0
+00000	  curangle: 135.730591
+goalangle:120.000000	  curangle: 135.010986
+goala
+ngle:120.000000	  curangle: 134.796753
+goalangle:120.000000	  curangle: 133.934
+326
+goalangle:0.000000	  curangle: 0.000000
+goalangle:0.000000	  curangle: 0.0
+00000
+goalangle:120.000000	  curangle: 127.705078
+goalangle:120.000000	  curan
+gle: 125.480347
+flag==0
+flag==1
+flag==0

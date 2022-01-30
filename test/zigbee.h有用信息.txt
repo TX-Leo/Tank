@@ -1,0 +1,24 @@
+uint16_t getCarZone(void);                                       //获取车辆所在区域信息，0为周边道路，1为中央矿区
+uint16_t getMineArrayType(int MineNo);                 //获取场上2个金矿的种类
+uint16_t getParkDotMineType(int ParkDotNo);                 //获取8个停车点能够存储的金矿种类
+uint16_t getMyBeaconMineType(int BeaconNo);                 //获取3个己方信标充当仓库可存储的金矿类型
+uint16_t getCarMineSumNum(void);                                //获取车辆目前载有金矿的总数目
+uint16_t getCarMineANum(void);                                //获取车辆目前载有金矿A的数目
+uint16_t getCarMineBNum(void);                                //获取车辆目前载有金矿B的数目
+uint16_t getCarMineCNum(void);                                //获取车辆目前载有金矿C的数目
+uint16_t getCarMineDNum(void);                                //获取车辆目前载有金矿D的数目
+uint16_t getCarPosX(void);		                                //获取小车x坐标
+uint16_t getCarPosY(void);			                            //获取小车y坐标
+uint32_t getMineIntensity(int MineNo);                   //获取小车中心处的两金矿强度
+uint16_t getDistanceOfMyBeacon(int BeaconNo);    //获取小车到己方3个信标的距离
+uint16_t getMyBeaconPosX(int BeaconNo);          //获取己方3个信标的x坐标
+uint16_t getMyBeaconPosY(int BeaconNo);           //获取己方3个信标的y坐标
+flag=0  暂停
+flag=1  正直行
+flag=0  转弯
+flag=0  慢慢行走
+flag=0  反直走
+second_leg_tactics(){
+ 1.转弯（45度）-》需要精准的初始化角度
+ 2.直行
+}

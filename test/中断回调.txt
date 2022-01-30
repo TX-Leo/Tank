@@ -1,0 +1,151 @@
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance == htim2.Instance) // 72 * 10 ^ 6 / 72 / 50000 = 20 HZ
+    {
+        switch (flag) //
+        {
+        case 0: //暂停
+        {
+            dspeed1 = 0;
+            dspeed2 = 0;
+            dspeed3 = 0;
+            dspeed4 = 0;
+            aspeed1 = 0;
+            aspeed2 = 0;
+            aspeed3 = 0;
+            aspeed4 = 0;
+        }
+        break;
+        case 1: //正直行
+        {
+            dspeed1 = 100;
+            dspeed2 = 100;
+            dspeed3 = 100;
+            dspeed4 = 100;
+            aspeed1 = 0;
+            aspeed2 = 0;
+            aspeed3 = 0;
+            aspeed4 = 0;
+        }
+        break;
+        case 2: //转弯
+        {
+            cur_angle = GetYaw();
+            if (goal_angle - cur_angle > 5 || goal_angle - cur_angle < -5)
+            {
+
+                int err_angle = goal_angle - cur_angle; //角度误差
+                dspeed1 = 0;                            // reset direct speed to 0
+                dspeed2 = 0;
+                dspeed3 = 0;
+                dspeed4 = 0;
+                if (err_angle < 0) //待调整
+                {
+                    aspeed1 = clockwise * ets_coefficient * fabs(err_angle); // set alternating speed
+                    aspeed2 = clockwise * ets_coefficient * fabs(err_angle);
+                    aspeed3 = -clockwise * ets_coefficient * fabs(err_angle);
+                    aspeed4 = -clockwise * ets_coefficient * fabs(err_angle);
+                }
+                else
+                {
+                    aspeed1 = -clockwise * ets_coefficient * fabs(err_angle); // set alternating speed
+                    aspeed2 = -clockwise * ets_coefficient * fabs(err_angle);
+                    aspeed3 = clockwise * ets_coefficient * fabs(err_angle);
+                    aspeed4 = clockwise * ets_coefficient * fabs(err_angle);
+                }
+                u1_printf("goalangle:%f\t cur: %f\r\n", goal_angle, cur_angle);
+            }
+            else
+            {
+                dspeed1 = 0;
+                dspeed2 = 0;
+                dspeed3 = 0;
+                dspeed4 = 0;
+                aspeed1 = 0;
+                aspeed2 = 0;
+                aspeed3 = 0;
+                aspeed4 = 0;
+                flag = 0;
+            }
+        }
+        break;
+        case 3: //慢慢行走
+        {
+            dspeed1 = 50;
+            dspeed2 = 50;
+            dspeed3 = 50;
+            dspeed4 = 50;
+            aspeed1 = 0;
+            aspeed2 = 0;
+            aspeed3 = 0;
+            aspeed4 = 0;
+        }
+        break;
+        case 4: //反直行
+        {
+            dspeed1 = 100;
+            dspeed2 = 100;
+            dspeed3 = 100;
+            dspeed4 = 100;
+            aspeed1 = 0;
+            aspeed2 = 0;
+            aspeed3 = 0;
+            aspeed4 = 0;
+        }
+        break;
+        default:
+            break;
+        }
+    }
+    short count1 = __HAL_TIM_GetCounter(&htim3);
+    __HAL_TIM_SetCounter(&htim3, 0);
+    short count2 = __HAL_TIM_GetCounter(&htim4);
+    __HAL_TIM_SetCounter(&htim4, 0);
+    short count3 = __HAL_TIM_GetCounter(&htim5);
+    __HAL_TIM_SetCounter(&htim5, 0);
+    short count4 = __HAL_TIM_GetCounter(&htim8);
+    __HAL_TIM_SetCounter(&htim8, 0);
+
+    curspeed1 = count1 * coefficient; //(100/(260*4)*6.0*3.14)//100=frequency,260*4=count times in one round,6.3=diameter(cm),final unit:cm/s
+    curspeed2 = count2 * coefficient;
+    curspeed3 = count3 * coefficient;
+    curspeed4 = count4 * coefficient;
+    u1_printf("curs1:%f\t curs2: %f\tcurs3 %f\tcurs4: %f\r\n", curspeed1, curspeed2, curspeed3, curspeed4);
+    u1_printf("speed1:%f\tspeed2:%f\tspeed3:%f\tspeed4:%f\r\n", dspeed1 + aspeed1, dspeed2 + aspeed2, dspeed3 + aspeed3, dspeed4 + aspeed4);
+    pwr1 = pwr1 + speedpidInc(1, dspeed1 + aspeed1, curspeed1);
+    pwr2 = pwr2 + speedpidInc(2, dspeed2 + aspeed2, curspeed2);
+    pwr3 = pwr3 + speedpidInc(3, dspeed3 + aspeed3, curspeed3);
+    pwr4 = pwr4 + speedpidInc(4, dspeed4 + aspeed4, curspeed4);
+    if (pwr1 < -1000)
+        pwr1 = -1000;
+    if (pwr2 < -1000)
+        pwr2 = -1000;
+    if (pwr3 < -1000)
+        pwr3 = -1000;
+    if (pwr4 < -1000)
+        pwr4 = -1000;
+    if (pwr1 > 1000)
+        pwr1 = 1000;
+    if (pwr2 > 1000)
+        pwr2 = 1000;
+    if (pwr3 > 1000)
+        pwr3 = 1000;
+    if (pwr4 > 1000)
+        pwr4 = 1000;
+    if (pwr1 > 0)
+        Setmotor(1, 1, pwr1);
+    if (pwr2 > 0)
+        Setmotor(2, 1, pwr2);
+    if (pwr3 > 0)
+        Setmotor(3, 1, pwr3);
+    if (pwr4 > 0)
+        Setmotor(4, 1, pwr4);
+    if (pwr1 < 0)
+        Setmotor(1, 0, -pwr1);
+    if (pwr2 < 0)
+        Setmotor(2, 0, -pwr2);
+    if (pwr3 < 0)
+        Setmotor(3, 0, -pwr3);
+    if (pwr4 < 0)
+        Setmotor(4, 0, -pwr4);
+}
